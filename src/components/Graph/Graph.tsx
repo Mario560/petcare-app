@@ -1,7 +1,60 @@
 import * as React from 'react';
 
 import CanvasJS from 'canvasjs';
+/*
 
+[
+    {
+        "timestamp": "2019-04-06T08:00:00",
+        "weight": 50
+    },
+    {
+        "timestamp": "2019-04-06T08:23:00",
+        "weight": 48
+    },
+    {
+        "timestamp": "2019-04-06T08:23:10",
+        "weight": 46
+    },
+    {
+        "timestamp": "2019-04-06T08:23:20",
+        "weight": 43
+    },
+    {
+        "timestamp": "2019-04-06T08:23:40",
+        "weight": 40
+    },
+    {
+        "timestamp": "2019-04-06T11:42:43",
+        "weight": 39
+    },
+    {
+        "timestamp": "2019-04-06T11:42:53",
+        "weight": 38
+    },
+    {
+        "timestamp": "2019-04-06T11:43:03",
+        "weight": 36
+    },
+    {
+        "timestamp": "2019-04-06T11:43:13",
+        "weight": 34
+    },
+    {
+        "timestamp": "2019-04-06T11:43:23",
+        "weight": 31
+    },
+    {
+        "timestamp": "2019-04-06T11:43:33",
+        "weight": 29
+    },
+    {
+        "timestamp": "2019-04-06T11:43:43",
+        "weight": 26
+    }
+]
+
+ */
 class Graph extends React.Component<{}, {}> {
     render() {
         const options = {
