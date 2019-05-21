@@ -41,7 +41,7 @@ class SideMenu extends React.Component<{},SideMenuState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            sidebarOpen: true
+            sidebarOpen: false
         };
         this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
     }
@@ -77,11 +77,13 @@ class SideMenu extends React.Component<{},SideMenuState> {
                 }
                 open={this.state.sidebarOpen}
                 onSetOpen={this.onSetSidebarOpen}
-                styles={{ sidebar: { background: "rgb(7, 71, 166)" } }}
+                styles={{ sidebar: { background: "rgb(7, 71, 166)" }, root: { right: "80%" }}}
             >
                 <Button color="primary" onClick={() => this.onSetSidebarOpen(true)}>
                     <MdMenu />
                 </Button>
+
+
             </Sidebar>
         );
     }

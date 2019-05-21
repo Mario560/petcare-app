@@ -11,6 +11,7 @@ import {
 import { ValueScale } from '@devexpress/dx-react-chart';
 import {line, curveStep, curveStepAfter} from "d3-shape";
 import { EventTracker } from '@devexpress/dx-react-chart';
+import {Button} from "reactstrap";
 
 interface IDataItem {
     timestamp: string,
@@ -91,7 +92,7 @@ export default class Demo extends React.Component<object, object> {
                     <ValueScale name="weight" />
 
                     <ArgumentAxis />
-                    <ValueAxis scaleName="weight" position="left" showGrid={true} showLine={true} showTicks={true} showLabels={true} tickSize={10}/>
+                    <ValueAxis scaleName="weight" position="left" showGrid={true} showLine={true} showTicks={true} showLabels={true} />
 
                     <LineSeries
                         name="Food amount"
@@ -106,6 +107,7 @@ export default class Demo extends React.Component<object, object> {
                     />
                     <EventTracker />
                     <Tooltip />
+
                 </Chart>
             </Paper>
         );
