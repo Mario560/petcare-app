@@ -1,9 +1,23 @@
 import * as React from 'react';
+import Paper from '@material-ui/core/Paper';
+import {
+    ArgumentAxis,
+    ValueAxis,
+    BarSeries,
+    Chart,
+    LineSeries,
+    Tooltip, Title
+} from '@devexpress/dx-react-chart-material-ui';
+import { ValueScale } from '@devexpress/dx-react-chart';
+import {line, curveStep, curveStepAfter} from "d3-shape";
+import { EventTracker } from '@devexpress/dx-react-chart';
 
-import CanvasJS from 'canvasjs';
-/*
+interface IDataItem {
+    timestamp: string,
+    weight: number
+}
 
-[
+const chartData2: IDataItem[] = [
     {
         "timestamp": "2019-04-06T08:00:00",
         "weight": 50
@@ -54,46 +68,46 @@ import CanvasJS from 'canvasjs';
     }
 ]
 
- */
-class Graph extends React.Component<{}, {}> {
-    render() {
-        const options = {
-            theme: "light2",
-            animationEnabled: true,
-            exportEnabled: true,
-            title:{
-                text: "Stock Movement"
-            },
-            axisY:{
-                title: "Stock In Hand",
-                includeZero: false
-            },
-            data: [{
-                type: "stepLine",
-                xValueFormatString: "MMM YYYY",
-                markerSize: 5,
-                dataPoints: [
-                    { x: new Date("2017- 01- 01"), y: 1792 },
-                    { x: new Date("2017- 02- 20"), y: 1526 },
-                    { x: new Date("2017- 03- 11"), y: 1955 },
-                    { x: new Date("2017- 04- 05"), y: 1727 },
-                    { x: new Date("2017- 05- 04"), y: 1523 },
-                    { x: new Date("2017- 06- 21"), y: 1257 },
-                    { x: new Date("2017- 07- 05"), y: 1520 },
-                    { x: new Date("2017- 08- 03"), y: 1853 },
-                    { x: new Date("2017- 09- 11"), y: 1738 },
-                    { x: new Date("2017- 10- 03"), y: 1754 }
-                ]
-            }]
-        }
+// @ts-ignore
+const Line = (props) => (
+    <LineSeries.Path
+        {...props}
+        path={line()
+        // @ts-ignore
+            .x(({ x }) => x)
+        // @ts-ignore
+            .y(({ y }) => y)
+            .curve(curveStepAfter)}
+    />
+);
+
+export default class Demo extends React.Component<object, object> {
+    public render(): React.ReactNode {
         return (
-            <div>
-                {/*<CanvasJS.Chart options = {options}*/}
-                    {/*/* onRef={ref => this.chart = ref} */*/}
-                {/*/>*/}
-                {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
-            </div>
+            <Paper>
+                <Chart
+                    data={chartData2}
+                >
+                    <ValueScale name="weight" />
+
+                    <ArgumentAxis />
+                    <ValueAxis scaleName="weight" position="left" showGrid={true} showLine={true} showTicks={true} showLabels={true} tickSize={10}/>
+
+                    <LineSeries
+                        name="Food amount"
+                        valueField="weight"
+                        argumentField="timestamp"
+                        scaleName="weight"
+                        color="red"
+                        seriesComponent={Line}
+                    />
+                    <Title
+                        text="Food"
+                    />
+                    <EventTracker />
+                    <Tooltip />
+                </Chart>
+            </Paper>
         );
     }
 }
-export default Graph;

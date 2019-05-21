@@ -35,7 +35,8 @@
     "acceptance-tests",
     "webpack",
     "jest",
-    "src/setupTests.ts"
+    "src/setupTests.ts",
+    "my-app/src/components/Graph/apexGraph.tsx"
   ],
   "include": [
     "src"

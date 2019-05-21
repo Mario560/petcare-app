@@ -1,8 +1,7 @@
 import * as React from 'react';
-import CanvasJS from 'canvasjs';
 import styled from "styled-components";
 import HeaderComponent from "../components/Navbar/HeaderComponent";
-import Graph from "../components/Graph/Graph";
+import Demo from "../components/Graph/Graph";
 
 const Title = styled.h1`
   font-size: 1.5em;
@@ -16,7 +15,7 @@ export default class Live extends React.Component {
         return (
             <div>
                 <HeaderComponent/>
-                <Graph />
+                <Demo />
             </div>
         );
     }
