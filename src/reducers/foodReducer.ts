@@ -23,9 +23,7 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 graphData: action.payload
-            }
-
-            return state;
+            };
 
         case foodActions.FETCH_FOOD_STATS:
             console.log("reduer ", action.payload);

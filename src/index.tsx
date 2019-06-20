@@ -9,7 +9,7 @@ import reducers from './reducers';
 import { persistStore, persistReducer } from 'redux-persist';
 import storageSession from 'redux-persist/es/storage/session'
 
-// import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap.css';
 
 import App from "./containers/App";
 import {FoodState} from "./reducers/foodReducer";
