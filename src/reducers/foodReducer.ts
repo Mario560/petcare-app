@@ -17,18 +17,20 @@ const initialState: FoodState = {
 
 
 // @ts-ignore
-// export const foodReducer = produce<ReadingsState, AppAction>((state, action) => {
 export default function (state = initialState, action) {
     switch (action.type) {
         case foodActions.FETCH_FOOD_GRAPH_DATA:
-            console.log("reduer ", action.payload);
-            return;
+            return {
+                ...state,
+                graphData: action.payload
+            }
+
+            return state;
 
         case foodActions.FETCH_FOOD_STATS:
             console.log("reduer ", action.payload);
-            return;
+            return state;
         default:
             return initialState;
     }
 }
-// }, initialState);

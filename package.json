@@ -3,15 +3,33 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@types/canvasjs": "^1.9.5",
-    "@types/recharts": "^1.1.16",
+    "@devexpress/dx-react-chart": "^1.11.1",
+    "@devexpress/dx-react-chart-material-ui": "^1.11.1",
+    "@devexpress/dx-react-core": "^1.11.1",
+    "@material-ui/core": "^4.1.1",
+    "@types/material-ui": "^0.21.6",
+    "@types/redux-persist-transform-filter": "^0.0.4",
+    "axios": "^0.19.0",
     "canvasjs": "^1.8.1",
+    "material-ui": "^0.20.2",
     "react": "^16.8.6",
+    "react-datepicker": "^2.7.0",
     "react-dom": "^16.8.6",
+    "react-icons": "^3.7.0",
+    "react-redux": "^7.1.0",
+    "react-router": "^5.0.1",
+    "react-router-dom": "^5.0.1",
     "react-scripts": "2.1.8",
+    "react-sidebar": "^3.0.2",
+    "reactstrap": "^8.0.0",
     "recharts": "^1.5.0",
-    "@devexpress/dx-react-chart-material-ui": "latest",
-    "redux": "latest"
+    "redux": "latest",
+    "redux-persist": "^5.10.0",
+    "redux-persist-transform-filter": "^0.0.18",
+    "redux-thunk": "^2.3.0",
+    "styled-components": "^4.3.2",
+    "typesafe-actions": "^4.4.1",
+    "typescript": "^3.5.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -22,10 +40,22 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "browserslist": [],
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/canvasjs": "^1.9.5",
+    "@types/react": "^16.8.21",
+    "@types/react-datepicker": "^2.3.0",
+    "@types/react-dom": "^16.8.4",
+    "@types/react-icons": "^3.0.0",
+    "@types/react-redux": "^7.0.3",
+    "@types/react-router": "^5.0.2",
+    "@types/react-router-dom": "^4.3.4",
+    "@types/react-sidebar": "^3.0.0",
+    "@types/reactstrap": "^8.0.1",
+    "@types/recharts": "^1.1.16",
+    "@types/redux-persist": "^4.3.1",
+    "@types/redux-thunk": "^2.1.0",
+    "@types/styled-components": "^4.1.16"
+  }
 }

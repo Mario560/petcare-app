@@ -21,13 +21,14 @@ export const foodActions = {
 export const fetchFoodGraphData = (form: TimeframeForm) => (dispatch: any) => {
     api.post('/food/graph-stats', form)
         .then((res) => {
-                console.log(res.data);
+                console.log("response food",  res.data);
             dispatch({
                 type: foodActions.FETCH_FOOD_GRAPH_DATA,
                 payload: res.data,
             });
+            console.log("dispatched successfull");
             })
-        .catch(() => {
-            console.log("request failed");
+        .catch((e) => {
+            console.log("request failed ", e);
         });
 };
