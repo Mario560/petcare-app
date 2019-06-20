@@ -7,12 +7,13 @@ import { createStore, applyMiddleware } from 'redux';
 import reducers from './reducers';
 import { persistStore, persistReducer } from 'redux-persist';
 
-import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap/dist/css/bootstrap.css';
 
 import App from "./containers/App";
 import {FoodState} from "./reducers/foodReducer";
 import {WaterState} from "./reducers/waterReducer";
 import {TemperatureState} from "./reducers/temperatureReducer";
+import {Provider} from "react-redux";
 const persistConfig = {
     key: 'root',
     storage: sessionStorage,
@@ -41,7 +42,9 @@ export interface RootState extends AppState { }
 
 
 ReactDOM.render((
-    <Router history={history}>
-        <App />
-    </Router>
+    <Provider store={store}>
+        <Router history={history}>
+            <App />
+        </Router>
+    </Provider>
 ), document.getElementById('root'));
