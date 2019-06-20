@@ -10,7 +10,8 @@
     "react-dom": "^16.8.6",
     "react-scripts": "2.1.8",
     "recharts": "^1.5.0",
-    "@devexpress/dx-react-chart-material-ui": "latest"
+    "@devexpress/dx-react-chart-material-ui": "latest",
+    "redux": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
