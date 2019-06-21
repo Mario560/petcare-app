@@ -21,11 +21,9 @@ const initialState: WaterState = {
 export default function (state = initialState, action) {
     switch (action.type) {
         case waterActions.FETCH_WATER_GRAPH_DATA:
-            console.log("reduer ", action.payload);
             return;
 
         case waterActions.FETCH_WATER_STATS:
-            console.log("reduer", action.payload);
             return;
         default:
             return initialState;

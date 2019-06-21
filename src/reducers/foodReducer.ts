@@ -26,7 +26,6 @@ export default function (state = initialState, action) {
             };
 
         case foodActions.FETCH_FOOD_STATS:
-            console.log("reduer ", action.payload);
             return state;
         default:
             return initialState;

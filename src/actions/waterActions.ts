@@ -20,7 +20,6 @@ export const waterActions = {
 export const fetchWaterGraphData = (form: TimeframeForm) => (dispatch: any) => {
     api.post('/water/graph-stats', form)
         .then((res) => {
-            console.log("aadd", res.data);
             dispatch({
                 type: waterActions.FETCH_WATER_GRAPH_DATA,
                 payload: res.data,

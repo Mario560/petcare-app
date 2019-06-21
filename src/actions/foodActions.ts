@@ -21,7 +21,6 @@ export const foodActions = {
 export const fetchFoodGraphData = (form: TimeframeForm) => (dispatch: any) => {
     api.post('/food/graph-stats', form)
         .then((res) => {
-                console.log("response food",  res.data);
             dispatch({
                 type: foodActions.FETCH_FOOD_GRAPH_DATA,
                 payload: res.data,

@@ -20,7 +20,6 @@ export const temperatureActions = {
 export const fetchTemperatureGraphData = (form: TimeframeForm) => (dispatch: any) => {
     api.post('/temperature/graph-stats', form)
         .then((res) => {
-            console.log(res.data);
             dispatch({
                 type: temperatureActions.FETCH_TEMPERATURE_GRAPH_DATA,
                 payload: res.data,

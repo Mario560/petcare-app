@@ -3,7 +3,7 @@ import * as React from 'react';
 import DatePicker from "react-datepicker";
 import styled from "styled-components";
 import HeaderComponent from "../components/Navbar/HeaderComponent";
-import Demo from "../components/Graph/Graph";
+import Food from "../components/Graph/Graph";
 import {Button} from "reactstrap";
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -11,12 +11,23 @@ import {connect} from "react-redux";
 import {bindActionCreators, Dispatch} from "redux";
 import {fetchFoodGraphData} from "../actions/foodActions";
 import {RootState} from "../index";
-import {Reading} from "../types/Reading";
 
 const CurrentStats = styled.div`
   padding-top: 30px;
   font-size: 20px;
   color: black;
+  text-align: center;
+`;
+
+const NoData = styled.div`
+  padding-top: 30px;
+  color: black;
+  text-align: center;
+`;
+
+const DateConatiner = styled.div`
+  padding-top: 30px;
+  color: #157ff7;
   text-align: center;
 `;
 
@@ -26,11 +37,11 @@ const RefillButtonContainer = styled.div`
 `;
 
 interface State {
-    startDate: any;
+    date: any;
 }
 
-type DispatchProps =  ReturnType<typeof mapDispatchToProps>;
-type StateProps = ReturnType<typeof mapStateToProps>;
+// type DispatchProps =  ReturnType<typeof mapDispatchToProps>;
+// type StateProps = ReturnType<typeof mapStateToProps>;
 type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps> & State;
 
 class Live extends React.Component<Props, State> {
@@ -38,40 +49,82 @@ class Live extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
-            startDate: new Date(),
+            date: new Date(),
         };
         this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange(date: any) {
-        console.log("date ", date);
-        this.props.fetchGraphData({startTime: "2019-04-06T08:00:00", endTime: "2019-04-06T12:00:00"});
+        let sendDate = new Date(date).toISOString();
+        sendDate = sendDate.substr(0, 10);
+        let start = sendDate.concat("T00:00:00");
+        let end = sendDate.concat("T23:59:00");
+        this.props.fetchGraphData({startTime: start, endTime: end});
         this.setState({
-            startDate: date
+            date: date
         });
     }
 
+    componentWillMount(){
+        let sendDate = new Date().toISOString();
+        sendDate = sendDate.substr(0, 10);
+        let start = sendDate.concat("T00:00:00");
+        let end = sendDate.concat("T23:59:00");
+        this.props.fetchGraphData({startTime: start, endTime: end});
+    }
+
+    componentDidMount(){
+        setInterval(() => this.liveRefresh(), 1000);
+    }
+
+    liveRefresh(){
+        let sendDate = new Date().toISOString();
+        sendDate = sendDate.substr(0, 10);
+        let start = sendDate.concat("T00:00:00");
+        let end = sendDate.concat("T23:59:00");
+        this.props.fetchGraphData({startTime: start, endTime: end});
+    }
+
     render() {
-        return (
-            <div>
-                <HeaderComponent/>
-                <Demo />
-                <DatePicker
-                    selected={this.state.startDate}
-                    onChange={this.handleChange}
-                />
-                <CurrentStats>
-                    <p><span style={{paddingRight: "100px"}}>Current food left: 30g</span><span
-                        style={{paddingRight: "100px"}}>Ate today: 72g</span>Last time ate: 15:37</p>
-                </CurrentStats>
+        console.log("state ", this.props.foodGraphStats);
+        if(this.props.foodGraphStats.length == 0){
+            return (
+                <div>
+                    <HeaderComponent/>
+                    <NoData>
+                        <h1>No food data for selected date</h1>
+                        <DatePicker
+                            selected={this.state.date}
+                            onChange={this.handleChange}
+                        />
+                    </NoData>
+                </div>
 
-                <RefillButtonContainer>
-                    <Button outline color="primary" onClick={() => console.log("refill food")}
-                            style={{textAlign: "center"}}>Refill food</Button>
-                </RefillButtonContainer>
+            );
+        } else {
+            return (
+                <div>
+                    <HeaderComponent/>
+                    <Food data={this.props.foodGraphStats}/>
+                    <DateConatiner>
+                        Select date: <DatePicker
+                            selected={this.state.date}
+                            onChange={this.handleChange}
+                        />
+                    </DateConatiner>
+                    <CurrentStats>
+                        <p><span style={{paddingRight: "100px"}}>Current food left: 30g</span><span
+                            style={{paddingRight: "100px"}}>Ate today: 72g</span>Last time ate: 15:37</p>
+                    </CurrentStats>
 
-            </div>
-        );
+                    <RefillButtonContainer>
+                        <Button outline color="primary" onClick={() => console.log("refill food")}
+                                style={{textAlign: "center"}}>Refill food</Button>
+                    </RefillButtonContainer>
+
+                </div>
+            );
+        }
     }
 }
 
@@ -89,91 +142,3 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(Live);
-
-// import * as React from 'react';
-// import {useEffect, useState} from 'react';
-// import DatePicker from "react-datepicker";
-// import styled from "styled-components";
-// import HeaderComponent from "../components/Navbar/HeaderComponent";
-// import Demo from "../components/Graph/Graph";
-// import {Button} from "reactstrap";
-//
-// import "react-datepicker/dist/react-datepicker.css";
-// import {connect} from "react-redux";
-// import {bindActionCreators, Dispatch} from "redux";
-// import {fetchFoodGraphData} from "../actions/foodActions";
-// import {RootState} from "../index";
-// import {Reading} from "../types/Reading";
-//
-// const CurrentStats = styled.div`
-//   padding-top: 30px;
-//   font-size: 20px;
-//   color: black;
-//   text-align: center;
-// `;
-//
-// const RefillButtonContainer = styled.div`
-//   padding-top: 30px;
-//   text-align: center;
-// `;
-//
-// interface State {
-//     startDate: any;
-//     foodGraphStats: Reading[];
-// }
-//
-// type DispatchProps = ReturnType<typeof mapDispatchToProps>;
-// type StateProps = ReturnType<typeof mapStateToProps>;
-// type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
-//
-//
-//
-// const Live = (props: StateProps & DispatchProps) => {
-//
-//     // new Date() -> initial value
-//     const [startDate, setStartDate] = useState(new Date());
-//     // FIXME još ne koristiš??
-//     const [foodGraphStats, setFoodGraphStats] = useState([]);
-//
-//     const handleChange = (date: any) => {
-//         console.log("date ", date);
-//         props.fetchGraphData()
-//         setStartDate(date)
-//     };
-//
-//     return (
-//         <div>
-//             <HeaderComponent/>
-//             <Demo />
-//             <DatePicker
-//                 selected={startDate}
-//                 onChange={handleChange}
-//             />
-//             <CurrentStats>
-//                 <p><span style={{paddingRight: "100px"}}>Current food left: 30g</span><span
-//                     style={{paddingRight: "100px"}}>Ate today: 72g</span>Last time ate: 15:37</p>
-//             </CurrentStats>
-//
-//             <RefillButtonContainer>
-//                 <Button outline color="primary" onClick={() => console.log("refill food")}
-//                         style={{textAlign: "center"}}>Refill food</Button>
-//             </RefillButtonContainer>
-//
-//         </div>
-//     );
-// };
-//
-// function mapStateToProps(state: RootState) {
-//     return {
-//         foodGraphStats: state.food.graphData,
-//     }
-// };
-// function mapDispatchToProps(dispatch: Dispatch) {
-//     return {
-//         fetchGraphData: bindActionCreators(fetchFoodGraphData, dispatch),
-//     };
-// }
-// export default connect(
-//     mapStateToProps,
-//     mapDispatchToProps
-// )(Live);

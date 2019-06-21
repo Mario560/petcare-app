@@ -19,11 +19,9 @@ const initialState: TemperatureState = {
 export default function (state = initialState, action) {
     switch (action.type) {
         case temperatureActions.FETCH_TEMPERATURE_GRAPH_DATA:
-            console.log("reduer");
             return;
 
         case temperatureActions.FETCH_TEMPERATURE_STATS:
-            console.log("reduer");
             return;
         default:
             return initialState;

@@ -12,62 +12,8 @@ import { ValueScale } from '@devexpress/dx-react-chart';
 import {line, curveStep, curveStepAfter} from "d3-shape";
 import { EventTracker } from '@devexpress/dx-react-chart';
 import {Button} from "reactstrap";
+import {Reading} from "../../types/Reading";
 
-interface IDataItem {
-    timestamp: string,
-    weight: number
-}
-
-const chartData2: IDataItem[] = [
-    {
-        "timestamp": "2019-04-06T08:00:00",
-        "weight": 50
-    },
-    {
-        "timestamp": "2019-04-06T08:23:00",
-        "weight": 48
-    },
-    {
-        "timestamp": "2019-04-06T08:23:10",
-        "weight": 46
-    },
-    {
-        "timestamp": "2019-04-06T08:23:20",
-        "weight": 43
-    },
-    {
-        "timestamp": "2019-04-06T08:23:40",
-        "weight": 40
-    },
-    {
-        "timestamp": "2019-04-06T11:42:43",
-        "weight": 39
-    },
-    {
-        "timestamp": "2019-04-06T11:42:53",
-        "weight": 38
-    },
-    {
-        "timestamp": "2019-04-06T11:43:03",
-        "weight": 36
-    },
-    {
-        "timestamp": "2019-04-06T11:43:13",
-        "weight": 34
-    },
-    {
-        "timestamp": "2019-04-06T11:43:23",
-        "weight": 31
-    },
-    {
-        "timestamp": "2019-04-06T11:43:33",
-        "weight": 29
-    },
-    {
-        "timestamp": "2019-04-06T11:43:43",
-        "weight": 26
-    }
-]
 
 // @ts-ignore
 const Line = (props) => (
@@ -82,34 +28,48 @@ const Line = (props) => (
     />
 );
 
-export default class Demo extends React.Component<object, object> {
+interface Props {
+    data: Reading[];
+}
+
+export default class Food extends React.Component<Props, object> {
     public render(): React.ReactNode {
-        return (
-            <Paper>
-                <Chart
-                    data={chartData2}
-                >
-                    <ValueScale name="weight" />
+        if(this.props.data.length == 0){
+            console.log("prazno");
+            return (
+                <div>
+                    <h1>No data for selected date</h1>
+                </div>
+            );
+        } else {
+            return (
+                <Paper>
+                    <Chart
+                        data={this.props.data}
+                    >
+                        <ValueScale name="weight"/>
 
-                    <ArgumentAxis />
-                    <ValueAxis scaleName="weight" position="left" showGrid={true} showLine={true} showTicks={true} showLabels={true} />
+                        <ArgumentAxis/>
+                        <ValueAxis scaleName="weight" position="left" showGrid={true} showLine={true} showTicks={true}
+                                   showLabels={true}/>
 
-                    <LineSeries
-                        name="Food amount"
-                        valueField="weight"
-                        argumentField="timestamp"
-                        scaleName="weight"
-                        color="red"
-                        seriesComponent={Line}
-                    />
-                    <Title
-                        text="Food"
-                    />
-                    <EventTracker />
-                    <Tooltip />
+                        <LineSeries
+                            name="Food amount"
+                            valueField="weight"
+                            argumentField="timestamp"
+                            scaleName="weight"
+                            color="red"
+                            seriesComponent={Line}
+                        />
+                        <Title
+                            text="Food"
+                        />
+                        <EventTracker/>
+                        <Tooltip/>
 
-                </Chart>
-            </Paper>
-        );
+                    </Chart>
+                </Paper>
+            );
+        }
     }
 }
