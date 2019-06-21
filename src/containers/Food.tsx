@@ -139,11 +139,8 @@ class Food extends React.Component<Props, State> {
                         <Button outline color="primary" disabled={this.refillDisabled} onClick={(e) => {
 
                             e.preventDefault();
-                            e.stopPropagation();
-                            e.nativeEvent.stopImmediatePropagation();
-                            console.log("refill food btn");
                             this.props.refillFood();
-                             this.refillDisabled = true;
+                            this.refillDisabled = true;
                             setTimeout(() => this.refillDisabled = false, 10000);
 
                         }}
