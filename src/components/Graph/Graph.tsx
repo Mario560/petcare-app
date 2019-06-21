@@ -32,7 +32,7 @@ interface Props {
     data: Reading[];
 }
 
-export default class Food extends React.Component<Props, object> {
+export default class Graph extends React.Component<Props, object> {
     public render(): React.ReactNode {
         if(this.props.data.length == 0){
             console.log("prazno");

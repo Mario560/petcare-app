@@ -1,6 +1,6 @@
 import React from "react";
 import Sidebar from "react-sidebar";
-import {MdMenu, MdLiveTv, MdHistory, MdInsertChart} from 'react-icons/md';
+import {MdMenu, MdRestaurant, MdLocalDrink, MdWbSunny} from 'react-icons/md';
 import {Button, Label} from "reactstrap";
 import {Link} from "react-router-dom";
 import styled from "styled-components";
@@ -57,19 +57,19 @@ class SideMenu extends React.Component<{},SideMenuState> {
                     <div>
                     <LinkTo to={"/live"} onClick={() => this.onSetSidebarOpen(false)}>
                         <ButtonStyle>
-                            <MdLiveTv /> Live
+                            <MdRestaurant /> Food
                         </ButtonStyle>
                      </LinkTo>
 
                     <LinkTo to={"/history"} onClick={() => this.onSetSidebarOpen(false)}>
                         <ButtonStyle>
-                            <MdHistory /> History
+                            <MdLocalDrink /> Water
                         </ButtonStyle>
                     </LinkTo>
 
                     <LinkTo to={"/stats"} onClick={() => this.onSetSidebarOpen(false)}>
                         <ButtonStyle>
-                            <MdInsertChart /> Stats
+                            <MdWbSunny /> Temperature
                         </ButtonStyle>
                     </LinkTo>
                     </div>

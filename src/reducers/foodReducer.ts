@@ -24,9 +24,21 @@ export default function (state = initialState, action) {
                 ...state,
                 graphData: action.payload
             };
-
-        case foodActions.FETCH_FOOD_STATS:
-            return state;
+        case foodActions.FETCH_FOOD_ATE_TODAY:
+            return {
+                ...state,
+                ateToday: action.payload
+            };
+        case foodActions.FETCH_FOOD_LAST_TIME_ATE:
+            return {
+                ...state,
+                lastTimeAte: action.payload
+            };
+        case foodActions.FETCH_FOOD_CURRENT_WEIGHT:
+            return {
+                ...state,
+                currentWeight: action.payload
+            };
         default:
             return initialState;
     }

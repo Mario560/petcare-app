@@ -1,6 +1,6 @@
 import {Route, Switch} from "react-router";
 import * as React from "react";
-import Live from "./Live";
+import Food from "./Food";
 import About from "./About";
 
 export default class App extends React.Component<{}> {
@@ -11,7 +11,7 @@ export default class App extends React.Component<{}> {
                 <Switch>
                     <Route path="/stats" component={About} />
                     <Route path="/history" component={About} />
-                    <Route path="/" component={Live} />
+                    <Route path="/" component={Food} />
                 </Switch>
             </React.Fragment>
         );
