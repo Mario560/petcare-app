@@ -25,7 +25,6 @@ export const fetchFoodGraphData = (form: TimeframeForm) => (dispatch: any) => {
                 type: foodActions.FETCH_FOOD_GRAPH_DATA,
                 payload: res.data,
             });
-            console.log("dispatched successfull");
             })
         .catch((e) => {
             console.log("request failed ", e);

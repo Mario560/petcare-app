@@ -45,11 +45,12 @@ interface State {
 type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps> & State;
 
 class Live extends React.Component<Props, State> {
+    private interval: number = 0;
 
     constructor(props: Props) {
         super(props);
         this.state = {
-            date: new Date(),
+            date: new Date()
         };
         this.handleChange = this.handleChange.bind(this);
     }
@@ -74,7 +75,10 @@ class Live extends React.Component<Props, State> {
     }
 
     componentDidMount(){
-        setInterval(() => this.liveRefresh(), 1000);
+        this.interval = setInterval(() => this.liveRefresh(), 1000);
+    }
+    componentWillUnmount() {
+        clearInterval( this.interval);
     }
 
     liveRefresh(){
@@ -86,7 +90,6 @@ class Live extends React.Component<Props, State> {
     }
 
     render() {
-        console.log("state ", this.props.foodGraphStats);
         if(this.props.foodGraphStats.length == 0){
             return (
                 <div>
