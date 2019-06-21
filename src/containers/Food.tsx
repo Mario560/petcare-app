@@ -34,7 +34,7 @@ const NoData = styled.div`
 
 const DateConatiner = styled.div`
   padding-top: 30px;
-  color: #157ff7;
+  color: #0275d8;
   text-align: center;
 `;
 
@@ -143,7 +143,7 @@ class Food extends React.Component<Props, State> {
                             e.nativeEvent.stopImmediatePropagation();
                             console.log("refill food btn");
                             this.props.refillFood();
-                          this.refillDisabled = true;
+                             this.refillDisabled = true;
                             setTimeout(() => this.refillDisabled = false, 10000);
 
                         }}
