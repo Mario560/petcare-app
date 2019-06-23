@@ -1,16 +1,17 @@
 import {Route, Switch} from "react-router";
 import * as React from "react";
 import Food from "./Food";
-import About from "./About";
+import Water from "./Water";
+import Temperature from "./Temperature";
 
 export default class App extends React.Component<{}> {
     public render() {
         return (
             <React.Fragment>
-                {/*<ToastContainer />*/}
                 <Switch>
-                    <Route path="/stats" component={About} />
-                    <Route path="/history" component={About} />
+                    <Route path="/water" component={Water} />
+                    <Route path="/temperature" component={Temperature} />
+                    <Route path="/food" component={Food} />
                     <Route path="/" component={Food} />
                 </Switch>
             </React.Fragment>

@@ -17,16 +17,29 @@ const initialState: WaterState = {
 
 
 // @ts-ignore
-// export const foodReducer = produce<ReadingsState, AppAction>((state, action) => {
 export default function (state = initialState, action) {
     switch (action.type) {
         case waterActions.FETCH_WATER_GRAPH_DATA:
-            return;
-
-        case waterActions.FETCH_WATER_STATS:
-            return;
+            return {
+                ...state,
+                graphData: action.payload
+            };
+        case waterActions.FETCH_WATER_DRANK_TODAY:
+            return {
+                ...state,
+                drankToday: action.payload
+            };
+        case waterActions.FETCH_WATER_LAST_TIME_DRANK:
+            return {
+                ...state,
+                lastTimeDrank: action.payload
+            };
+        case waterActions.FETCH_WATER_CURRENT_WEIGHT:
+            return {
+                ...state,
+                currentWeight: action.payload
+            };
         default:
             return initialState;
     }
 }
-// }, initialState);

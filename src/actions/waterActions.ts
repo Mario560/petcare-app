@@ -1,19 +1,11 @@
-// import {createStandardAction} from "typesafe-actions";
-// import {TimeframeForm} from "../types/TimeframeForm";
-//
-// export const foodActions = {
-//
-//     fetchFoodGraphData: createStandardAction('FETCH_FOOD_GRAPH_DATA')<TimeframeForm>(),
-//     fetchFoodStats: createStandardAction('FETCH_FOOD_GRAPH_DATA')<{date: string}>(),
-//
-// };
-
 import {TimeframeForm} from "../types/TimeframeForm";
 import api from "../utils/api";
 
 export const waterActions = {
     FETCH_WATER_GRAPH_DATA: 'FETCH_WATER_GRAPH_DATA',
-    FETCH_WATER_STATS: 'FETCH_WATER_STATS',
+    FETCH_WATER_CURRENT_WEIGHT: 'FETCH_WATER_CURRENT_WEIGHT',
+    FETCH_WATER_LAST_TIME_DRANK: 'FETCH_WATER_LAST_TIME_DRANK',
+    FETCH_WATER_DRANK_TODAY: 'FETCH_WATER_DRANK_TODAY',
 };
 
 
@@ -25,7 +17,46 @@ export const fetchWaterGraphData = (form: TimeframeForm) => (dispatch: any) => {
                 payload: res.data,
             });
         })
-        .catch(() => {
-            console.log("request failed");
+        .catch((e) => {
+            console.log("water graph stats request failed", e);
+        });
+};
+
+export const fetchCurrentWaterWeight = () => (dispatch: any) => {
+    api.get('/water/current')
+        .then((res) => {
+            dispatch({
+                type: waterActions.FETCH_WATER_CURRENT_WEIGHT,
+                payload: res.data,
+            });
+        })
+        .catch((e) => {
+            console.log("request failed ", e);
+        });
+};
+
+export const fetchLastTimeDrank = () => (dispatch: any) => {
+    api.get('/water/last-time-drank-today')
+        .then((res) => {
+            dispatch({
+                type: waterActions.FETCH_WATER_LAST_TIME_DRANK,
+                payload: res.data,
+            });
+        })
+        .catch((e) => {
+            console.log("request failed ", e);
+        });
+};
+
+export const fetchDrankToday = () => (dispatch: any) => {
+    api.get('/water/drank-today')
+        .then((res) => {
+            dispatch({
+                type: waterActions.FETCH_WATER_DRANK_TODAY,
+                payload: res.data,
+            });
+        })
+        .catch((e) => {
+            console.log("request failed ", e);
         });
 };

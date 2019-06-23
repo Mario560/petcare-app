@@ -1,24 +1,22 @@
-
 import * as React from 'react';
 import DatePicker from "react-datepicker";
 import styled from "styled-components";
 import HeaderComponent from "../components/Navbar/HeaderComponent";
 import Graph from "../components/Graph/Graph";
-import {Button} from "reactstrap";
 
 import "react-datepicker/dist/react-datepicker.css";
 import {connect} from "react-redux";
 import {bindActionCreators, Dispatch} from "redux";
-import {
-    fetchAteToday,
-    fetchCurrentFoodWeight,
-    fetchFoodGraphData,
-    fetchLastTimeAte,
-    refillFood
-} from "../actions/foodActions";
+
 import {RootState} from "../index";
 import cropOnlyTime from "../utils/cropOnlyTime";
 import isToday from "../utils/isToday";
+import {
+    fetchCurrentTemperature,
+    fetchMaxTemperature,
+    fetchMinTemperature,
+    fetchTemperatureGraphData
+} from "../actions/temperatureActions";
 
 const CurrentStats = styled.div`
   padding-top: 30px;
@@ -39,20 +37,14 @@ const DateConatiner = styled.div`
   text-align: center;
 `;
 
-const RefillButtonContainer = styled.div`
-  padding-top: 30px;
-  text-align: center;
-`;
-
 interface State {
     date: Date;
 }
 
 type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps> & State;
 
-class Food extends React.Component<Props, State> {
+class Temperature extends React.Component<Props, State> {
     private interval: number = 0;
-    private refillDisabled: boolean = false;
 
     constructor(props: Props) {
         super(props);
@@ -79,9 +71,9 @@ class Food extends React.Component<Props, State> {
         let start = sendDate.concat("T00:00:00");
         let end = sendDate.concat("T23:59:00");
         this.props.fetchGraphData({startTime: start, endTime: end});
-        this.props.fetchCurrentWeight();
-        this.props.fetchAteToday();
-        this.props.fetchLastTimeAte();
+        this.props.fetchCurrentTemperature();
+        this.props.fetchMaxTemperature();
+        this.props.fetchMinTemperature();
     }
 
     componentDidMount(){
@@ -98,92 +90,68 @@ class Food extends React.Component<Props, State> {
             let start = sendDate.concat("T00:00:00");
             let end = sendDate.concat("T23:59:00");
             this.props.fetchGraphData({startTime: start, endTime: end});
-            this.props.fetchCurrentWeight();
-            this.props.fetchAteToday();
-            this.props.fetchLastTimeAte();
+            this.props.fetchCurrentTemperature();
+            this.props.fetchMaxTemperature();
+            this.props.fetchMinTemperature();
         }
     }
 
 
     render() {
-        if(this.props.foodGraphStats.length == 0){
+        if(this.props.temperatureGraphStats.length == 0){
             return (
                 <div>
                     <HeaderComponent/>
                     <NoData>
-                        <h1>No food data for selected date</h1>
+                        <h1>No water data for selected date</h1>
                         <DatePicker
                             selected={this.state.date}
                             onChange={this.handleChange}
                         />
                     </NoData>
-                    {isToday(new Date(this.state.date)) ? <RefillButtonContainer>
-                        <Button outline color="primary"  disabled={this.refillDisabled} onClick={(e) => {
-
-                            e.preventDefault();
-                            this.props.refillFood();
-                            this.refillDisabled = true;
-                            setTimeout(() => this.refillDisabled = false, 10000);
-
-                        }}
-                                style={{textAlign: "center"}}>Refill food</Button>
-                    </RefillButtonContainer> : null }
                 </div>
 
             );
         } else {
-            this.props.foodGraphStats.forEach(x => {x.timestamp = cropOnlyTime(x.timestamp)});
+            this.props.temperatureGraphStats.forEach(x => {x.timestamp = cropOnlyTime(x.timestamp)});
             return (
                 <div>
                     <HeaderComponent/>
-                    <Graph data={this.props.foodGraphStats} title={"Food"}/>
+                    <Graph data={this.props.temperatureGraphStats} title={"Temperature"}/>
                     <DateConatiner>
                         Select date: <DatePicker
-                            selected={this.state.date}
-                            onChange={this.handleChange}
-                        />
+                        selected={this.state.date}
+                        onChange={this.handleChange}
+                    />
                     </DateConatiner>
                     <CurrentStats>
-                        <p><span style={{paddingRight: "100px"}}>Current food left: <span style={{color: "#ff0000"}}>{this.props.currentWeight} g</span></span><span
-                            style={{paddingRight: "100px"}}>Ate today: <span style={{color: "#ff0000"}}>{this.props.ateToday} g</span></span>Last time ate: <span style={{color: "#ff0000"}}>{cropOnlyTime(this.props.lastTimeAteToday)}</span></p>
+                        <p><span style={{paddingRight: "100px"}}>Current temperature: <span style={{color: "#ff0000"}}>{this.props.current} °C</span></span><span
+                            style={{paddingRight: "100px"}}>Maximum temperature today: <span style={{color: "#ff0000"}}>{this.props.max} °C</span></span>Minimum temperature today: <span style={{color: "#ff0000"}}>{this.props.min} °C</span></p>
                     </CurrentStats>
-
-                    <RefillButtonContainer>
-                        <Button outline color="primary" disabled={this.refillDisabled} onClick={(e) => {
-
-                            e.preventDefault();
-                            this.props.refillFood();
-                            this.refillDisabled = true;
-                            setTimeout(() => this.refillDisabled = false, 10000);
-
-                        }}
-                                style={{textAlign: "center"}}>Refill food</Button>
-                    </RefillButtonContainer>
-
                 </div>
             );
         }
     }
 }
 
+
 function mapStateToProps(state: RootState) {
     return {
-        foodGraphStats: state.food.graphData,
-        currentWeight: state.food.currentWeight,
-        ateToday: state.food.ateToday,
-        lastTimeAteToday: state.food.lastTimeAte,
+        temperatureGraphStats: state.temperature.graphData,
+        current: state.temperature.currentTemp,
+        max: state.temperature.maxToday,
+        min: state.temperature.minToday,
     }
 };
 function mapDispatchToProps(dispatch: Dispatch) {
     return {
-        fetchGraphData: bindActionCreators(fetchFoodGraphData, dispatch),
-        fetchCurrentWeight: bindActionCreators(fetchCurrentFoodWeight, dispatch),
-        fetchLastTimeAte: bindActionCreators(fetchLastTimeAte, dispatch),
-        fetchAteToday: bindActionCreators(fetchAteToday, dispatch),
-        refillFood: bindActionCreators(refillFood, dispatch),
+        fetchGraphData: bindActionCreators(fetchTemperatureGraphData, dispatch),
+        fetchCurrentTemperature: bindActionCreators(fetchCurrentTemperature, dispatch),
+        fetchMaxTemperature: bindActionCreators(fetchMaxTemperature, dispatch),
+        fetchMinTemperature: bindActionCreators(fetchMinTemperature, dispatch),
     };
 }
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Food);
+)(Temperature);

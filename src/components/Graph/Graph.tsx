@@ -30,12 +30,13 @@ const Line = (props) => (
 
 interface Props {
     data: Reading[];
+    title: string;
 }
 
 export default class Graph extends React.Component<Props, object> {
     public render(): React.ReactNode {
+
         if(this.props.data.length == 0){
-            console.log("prazno");
             return (
                 <div>
                     <h1>No data for selected date</h1>
@@ -47,22 +48,31 @@ export default class Graph extends React.Component<Props, object> {
                     <Chart
                         data={this.props.data}
                     >
-                        <ValueScale name="weight"/>
+                        <ValueScale name="value"/>
 
                         <ArgumentAxis/>
-                        <ValueAxis scaleName="weight" position="left" showGrid={true} showLine={true} showTicks={true}
+                        <ValueAxis scaleName="value" position="left" showGrid={true} showLine={true} showTicks={true}
                                    showLabels={true}/>
 
+                        {this.props.title == "Temperature" ?
                         <LineSeries
-                            name="Food amount"
-                            valueField="weight"
+                            name="amount"
+                            valueField="value"
                             argumentField="timestamp"
-                            scaleName="weight"
+                            scaleName="value"
                             color="red"
                             seriesComponent={Line}
-                        />
+                        /> : <LineSeries
+                                name="amount"
+                                valueField="weight"
+                                argumentField="timestamp"
+                                scaleName="value"
+                                color="red"
+                                seriesComponent={Line}
+                            /> }
+
                         <Title
-                            text="Food"
+                            text={this.props.title}
                         />
                         <EventTracker/>
                         <Tooltip/>

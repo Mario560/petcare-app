@@ -55,19 +55,19 @@ class SideMenu extends React.Component<{},SideMenuState> {
             <Sidebar
                 sidebar={
                     <div>
-                    <LinkTo to={"/live"} onClick={() => this.onSetSidebarOpen(false)}>
+                    <LinkTo to={"/food"} onClick={() => this.onSetSidebarOpen(false)}>
                         <ButtonStyle>
                             <MdRestaurant /> Food
                         </ButtonStyle>
                      </LinkTo>
 
-                    <LinkTo to={"/history"} onClick={() => this.onSetSidebarOpen(false)}>
+                    <LinkTo to={"/water"} onClick={() => this.onSetSidebarOpen(false)}>
                         <ButtonStyle>
                             <MdLocalDrink /> Water
                         </ButtonStyle>
                     </LinkTo>
 
-                    <LinkTo to={"/stats"} onClick={() => this.onSetSidebarOpen(false)}>
+                    <LinkTo to={"/temperature"} onClick={() => this.onSetSidebarOpen(false)}>
                         <ButtonStyle>
                             <MdWbSunny /> Temperature
                         </ButtonStyle>

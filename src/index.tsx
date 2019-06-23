@@ -24,11 +24,20 @@ const saveSubsetFilter = createFilter(
     ['currentWeight', 'graphData', 'ateToday', 'lastTimeAte'],
 );
 
+const saveSubsetFilter2 = createFilter(
+    'water',
+    ['currentWeight', 'graphData', 'drankToday', 'lastTimeDrank'],
+);
+
+const saveSubsetFilter3 = createFilter(
+    'temperature',
+    ['currentTemp', 'graphData', 'maxToday', 'minToday'],
+);
 
 const persistConfig = {
     key: 'root',
     storage: storageSession,
-    transforms: [saveSubsetFilter],
+    transforms: [saveSubsetFilter, saveSubsetFilter2, saveSubsetFilter3],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);
