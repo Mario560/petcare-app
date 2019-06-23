@@ -21,12 +21,13 @@ const Title = styled.h3`
   text-align: center;
 `
 
+
 export default class HeaderComponent extends React.Component {
     render() {
         return (
             <Header>
                 <SideMenu />
-                <Title>PETCARE</Title>
+                <Title><Link to={"/"} style={{textDecoration:"none", color:"white"}}>PETCARE</Link></Title>
             </Header>
         );
     }

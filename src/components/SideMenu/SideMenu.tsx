@@ -1,6 +1,6 @@
 import React from "react";
 import Sidebar from "react-sidebar";
-import {MdMenu, MdRestaurant, MdLocalDrink, MdWbSunny} from 'react-icons/md';
+import {MdMenu, MdRestaurant, MdLocalDrink, MdWbSunny, MdHome} from 'react-icons/md';
 import {Button, Label} from "reactstrap";
 import {Link} from "react-router-dom";
 import styled from "styled-components";
@@ -55,31 +55,36 @@ class SideMenu extends React.Component<{},SideMenuState> {
             <Sidebar
                 sidebar={
                     <div>
-                    <LinkTo to={"/food"} onClick={() => this.onSetSidebarOpen(false)}>
-                        <ButtonStyle>
-                            <MdRestaurant /> Food
-                        </ButtonStyle>
-                     </LinkTo>
+                        <LinkTo to={"/"} onClick={() => this.onSetSidebarOpen(false)}>
+                            <ButtonStyle style={{marginTop:"50px"}}>
+                                <MdHome /> Home
+                            </ButtonStyle>
+                        </LinkTo>
+                        <LinkTo to={"/food"} onClick={() => this.onSetSidebarOpen(false)}>
+                            <ButtonStyle>
+                                <MdRestaurant /> Food
+                            </ButtonStyle>
+                         </LinkTo>
 
-                    <LinkTo to={"/water"} onClick={() => this.onSetSidebarOpen(false)}>
-                        <ButtonStyle>
-                            <MdLocalDrink /> Water
-                        </ButtonStyle>
-                    </LinkTo>
+                        <LinkTo to={"/water"} onClick={() => this.onSetSidebarOpen(false)}>
+                            <ButtonStyle>
+                                <MdLocalDrink /> Water
+                            </ButtonStyle>
+                        </LinkTo>
 
-                    <LinkTo to={"/temperature"} onClick={() => this.onSetSidebarOpen(false)}>
-                        <ButtonStyle>
-                            <MdWbSunny /> Temperature
-                        </ButtonStyle>
-                    </LinkTo>
+                        <LinkTo to={"/temperature"} onClick={() => this.onSetSidebarOpen(false)}>
+                            <ButtonStyle>
+                                <MdWbSunny /> Temperature
+                            </ButtonStyle>
+                        </LinkTo>
                     </div>
 
                 }
                 open={this.state.sidebarOpen}
                 onSetOpen={this.onSetSidebarOpen}
-                styles={{ sidebar: { background: "rgb(7, 71, 166)" }, root: { right: "80%" }}}
+                styles={{ sidebar: { background: "rgb(7, 71, 166)" }, root: { right: "90%" }}}
             >
-                <Button color="primary" onClick={() => this.onSetSidebarOpen(true)}>
+                <Button color="primary" style={{height:"50px"}} onClick={() => this.onSetSidebarOpen(true)}>
                     <MdMenu />
                 </Button>
 
