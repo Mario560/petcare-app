@@ -103,7 +103,7 @@ class Temperature extends React.Component<Props, State> {
                 <div>
                     <HeaderComponent/>
                     <NoData>
-                        <h1>No water data for selected date</h1>
+                        <h1>No temperature data for selected date</h1>
                         <DatePicker
                             selected={this.state.date}
                             onChange={this.handleChange}
