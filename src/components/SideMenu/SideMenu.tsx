@@ -84,7 +84,7 @@ class SideMenu extends React.Component<{},SideMenuState> {
                 }
                 open={this.state.sidebarOpen}
                 onSetOpen={this.onSetSidebarOpen}
-                styles={{ sidebar: { background: "rgb(7, 71, 166)" }, root: { right: "80%" }}}
+                styles={{ sidebar: { background: "rgb(7, 71, 166)" }, root: { right: isMobile ? "80%" : "90%" }}}
             >
                 <Button color="primary" style={{height:"50px"}} onClick={() => this.onSetSidebarOpen(true)}>
                     <MdMenu />

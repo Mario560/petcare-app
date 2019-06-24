@@ -116,9 +116,11 @@ export default class Home extends React.Component {
                                 remotely, meaning that wherever in this world you are, if you have internet acces, you
                                 can feed your pet that is waiting for you at home.
                                 <br/><br/>
+                                <div style={{width: "100%", display: "flex", justifyContent: "center"}}>
                                 <Button outline color="primary"
-                                        style={{marginLeft: isMobile ? "0%" : "28%", textAlign: "center", width: isMobile ? "100%" : "200px"}}
+                                        style={{marginLeft: isMobile ? "0%" : "0%", textAlign: "center", width: isMobile ? "150px" : "200px"}}
                                         onClick={() => this.scrollToMyRef()}>Check it out!</Button>
+                                </div>
                             </About>
                     </BackgroundImage>
                 </div>
