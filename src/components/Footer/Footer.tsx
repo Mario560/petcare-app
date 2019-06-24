@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import * as React from "react";
-import SideMenu from "../SideMenu/SideMenu";
 import {Link} from "react-router-dom";
-import Table from "reactstrap/lib/Table";
 
 const Title = styled.h3`
   font-family: "Bauhaus 93";
@@ -37,7 +35,7 @@ export default class Footer extends React.Component {
         return (
             <FooterStyle>
                 <FooterContent>
-                    <div style={{paddingRight:"20%"}}>
+                    <div style={{paddingRight:"22%"}}>
                         <Title>Reach us</Title>
                         <Link to={"#"}>Vrbik 8</Link><br/>
                         <Link to={"#"}>Zagreb, 10000</Link><br/>
