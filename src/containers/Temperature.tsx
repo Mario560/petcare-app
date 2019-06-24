@@ -43,6 +43,8 @@ interface State {
 
 type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps> & State;
 
+const isMobile = window.innerWidth <= 500;
+
 class Temperature extends React.Component<Props, State> {
     private interval: number = 0;
 
@@ -125,8 +127,8 @@ class Temperature extends React.Component<Props, State> {
                     />
                     </DateConatiner>
                     <CurrentStats>
-                        <p><span style={{paddingRight: "100px"}}>Current temperature: <span style={{color: "#ff0000"}}>{this.props.current} °C</span></span><span
-                            style={{paddingRight: "100px"}}>Maximum temperature today: <span style={{color: "#ff0000"}}>{this.props.max} °C</span></span>Minimum temperature today: <span style={{color: "#ff0000"}}>{this.props.min} °C</span></p>
+                        <p><span style={{paddingRight: "100px"}}>Current temperature: <span style={{color: "#ff0000"}}>{this.props.current} °C{isMobile ? <br/> : null}</span></span><span
+                            style={{paddingRight: "100px"}}>Maximum temperature today: <span style={{color: "#ff0000"}}>{this.props.max} °C{isMobile ? <br/> : null}</span></span>Minimum temperature today: <span style={{color: "#ff0000"}}>{this.props.min} °C</span></p>
                     </CurrentStats>
                 </div>
             );

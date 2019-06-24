@@ -2,6 +2,8 @@ import styled from "styled-components";
 import * as React from "react";
 import {Link} from "react-router-dom";
 
+const isMobile = window.innerWidth <= 500;
+
 const Title = styled.h3`
   font-family: "Bauhaus 93";
   color:white;
@@ -35,7 +37,7 @@ export default class Footer extends React.Component {
         return (
             <FooterStyle>
                 <FooterContent>
-                    <div style={{paddingRight:"22%"}}>
+                    <div style={{paddingRight: isMobile ? "5%" : "22%", paddingLeft: isMobile ? "5%" : "0%"}}>
                         <Title>Reach us</Title>
                         <Link to={"#"}>Vrbik 8</Link><br/>
                         <Link to={"#"}>Zagreb, 10000</Link><br/>
@@ -43,7 +45,7 @@ export default class Footer extends React.Component {
                         <Link to={"#"}>mlukec@tvz.hr</Link>
                     </div>
 
-                    <div style={{paddingRight:"20%"}}>
+                    <div style={{paddingRight: isMobile ? "5%" : "20%"}}>
                         <Title>Legal</Title>
                         <Link to={"#"}>Terms & conditions</Link><br/>
                         <Link to={"#"}>Privacy policy</Link><br/>

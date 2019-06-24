@@ -37,6 +37,8 @@ const LinkTo = styled(Link)`
   }
 `
 
+const isMobile = window.innerWidth <= 500;
+
 class SideMenu extends React.Component<{},SideMenuState> {
     constructor(props: any) {
         super(props);
@@ -57,24 +59,24 @@ class SideMenu extends React.Component<{},SideMenuState> {
                     <div>
                         <LinkTo to={"/"} onClick={() => this.onSetSidebarOpen(false)}>
                             <ButtonStyle style={{marginTop:"50px"}}>
-                                <MdHome /> Home
+                                <MdHome /> {isMobile ? null : "Home"}
                             </ButtonStyle>
                         </LinkTo>
                         <LinkTo to={"/food"} onClick={() => this.onSetSidebarOpen(false)}>
                             <ButtonStyle>
-                                <MdRestaurant /> Food
+                                <MdRestaurant /> {isMobile ? null : "Food"}
                             </ButtonStyle>
                          </LinkTo>
 
                         <LinkTo to={"/water"} onClick={() => this.onSetSidebarOpen(false)}>
                             <ButtonStyle>
-                                <MdLocalDrink /> Water
+                                <MdLocalDrink /> {isMobile ? null : "Water"}
                             </ButtonStyle>
                         </LinkTo>
 
                         <LinkTo to={"/temperature"} onClick={() => this.onSetSidebarOpen(false)}>
                             <ButtonStyle>
-                                <MdWbSunny /> Temperature
+                                <MdWbSunny /> {isMobile ? null : "Temperature"}
                             </ButtonStyle>
                         </LinkTo>
                     </div>
@@ -82,7 +84,7 @@ class SideMenu extends React.Component<{},SideMenuState> {
                 }
                 open={this.state.sidebarOpen}
                 onSetOpen={this.onSetSidebarOpen}
-                styles={{ sidebar: { background: "rgb(7, 71, 166)" }, root: { right: "90%" }}}
+                styles={{ sidebar: { background: "rgb(7, 71, 166)" }, root: { right: "80%" }}}
             >
                 <Button color="primary" style={{height:"50px"}} onClick={() => this.onSetSidebarOpen(true)}>
                     <MdMenu />

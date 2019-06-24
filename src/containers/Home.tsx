@@ -9,7 +9,7 @@ import {Button} from "reactstrap";
 import history from "../history";
 import Footer from "../components/Footer/Footer";
 
-
+const isMobile = window.innerWidth <= 500;
 
 const BackgroundImage = styled.div`
   background-image: url(${Background}) ;
@@ -55,8 +55,8 @@ const waterButtonCss = {
     backgroundRepeat:"no-repeat",
     border:"5px solid white",
     borderRadius:"20%",
-    width:"200px",
-    height:"200px",
+    width: isMobile ? "100px" : "200px",
+    height: isMobile ? "100px" : "200px",
     marginLeft:"30px",
     marginRight:"30px",
 };
@@ -68,11 +68,12 @@ const foodButtonCss = {
     backgroundRepeat:"no-repeat",
     border:"5px solid white",
     borderRadius:"20%",
-    width:"200px",
-    height:"200px",
+    width: isMobile ? "100px" : "200px",
+    height: isMobile ? "100px" : "200px",
     marginLeft:"30px",
     marginRight:"30px"
 };
+
 
 const temperatureButtonCss = {
     backgroundImage:`url(${TemperatureIcon})`,
@@ -81,12 +82,11 @@ const temperatureButtonCss = {
     backgroundRepeat:"no-repeat",
     border:"5px solid white",
     borderRadius:"20%",
-    width:"200px",
-    height:"200px",
+    width: isMobile ? "100px" : "200px",
+    height: isMobile ? "100px" : "200px",
     marginLeft:"30px",
     marginRight:"30px"
 };
-
 
 export default class Home extends React.Component {
 
@@ -108,13 +108,18 @@ export default class Home extends React.Component {
                         <Title>
                             <h2>Welcome to Petcare, app to keep track of your pet</h2>
                         </Title>
-                        <About>
-                            <strong style={{color:"#157FF7"}}>What can I do with Petcare platform?</strong><br/><br/>
-                            Our platform allows you to monitor, store and analyze data regarding food and water consumptions by your four-legged friends. Platform also enables you to add more food remotely, meaning that wherever in this world you are, if you have internet acces, you can feed your pet that is waiting for you at home.
-                            <br/><br/>
-                            <Button outline color="primary" style={{marginLeft:"28%", textAlign: "center", width:"200px"}}
-                                onClick={() => this.scrollToMyRef()} >Check it out!</Button>
-                        </About>
+                            <About style={{width: isMobile ? "95%" : "30%", paddingTop: isMobile ? "10px" : "300px"}}>
+                                <strong style={{color: "#157FF7"}}>What can I do with Petcare
+                                    platform?</strong><br/><br/>
+                                Our platform allows you to monitor, store and analyze data regarding food and water
+                                consumptions by your four-legged friends. Platform also enables you to add more food
+                                remotely, meaning that wherever in this world you are, if you have internet acces, you
+                                can feed your pet that is waiting for you at home.
+                                <br/><br/>
+                                <Button outline color="primary"
+                                        style={{marginLeft: isMobile ? "0%" : "28%", textAlign: "center", width: isMobile ? "100%" : "200px"}}
+                                        onClick={() => this.scrollToMyRef()}>Check it out!</Button>
+                            </About>
                     </BackgroundImage>
                 </div>
                 <div ref={this.myRef}>

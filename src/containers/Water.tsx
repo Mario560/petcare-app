@@ -41,6 +41,8 @@ interface State {
     date: Date;
 }
 
+const isMobile = window.innerWidth <= 500;
+
 type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps> & State;
 
 class Water extends React.Component<Props, State> {
@@ -125,8 +127,8 @@ class Water extends React.Component<Props, State> {
                     />
                     </DateConatiner>
                     <CurrentStats>
-                        <p><span style={{paddingRight: "100px"}}>Current water left: <span style={{color: "#ff0000"}}>{this.props.currentWeight} ml</span></span><span
-                            style={{paddingRight: "100px"}}>Drank today: <span style={{color: "#ff0000"}}>{this.props.drankToday} ml</span></span>Last time drank: <span style={{color: "#ff0000"}}>{cropOnlyTime(this.props.lastTimeDrankToday)}</span></p>
+                        <p><span style={{paddingRight: "100px"}}>Current water left: <span style={{color: "#ff0000"}}>{this.props.currentWeight} ml{isMobile ? <br/> : null}</span></span><span
+                            style={{paddingRight: "100px"}}>Drank today: <span style={{color: "#ff0000"}}>{this.props.drankToday} ml{isMobile ? <br/> : null}</span></span>Last time drank: <span style={{color: "#ff0000"}}>{cropOnlyTime(this.props.lastTimeDrankToday)}</span></p>
                     </CurrentStats>
                 </div>
             );

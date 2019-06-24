@@ -48,6 +48,8 @@ interface State {
     date: Date;
 }
 
+const isMobile = window.innerWidth <= 500;
+
 type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps> & State;
 
 class Food extends React.Component<Props, State> {
@@ -144,8 +146,8 @@ class Food extends React.Component<Props, State> {
                         />
                     </DateConatiner>
                     <CurrentStats>
-                        <p><span style={{paddingRight: "100px"}}>Current food left: <span style={{color: "#ff0000"}}>{this.props.currentWeight} g</span></span><span
-                            style={{paddingRight: "100px"}}>Ate today: <span style={{color: "#ff0000"}}>{this.props.ateToday} g</span></span>Last time ate: <span style={{color: "#ff0000"}}>{cropOnlyTime(this.props.lastTimeAteToday)}</span></p>
+                        <p><span style={{paddingRight: "100px"}}>Current food left: <span style={{color: "#ff0000"}}>{this.props.currentWeight} g{isMobile ? <br/> : null}</span></span><span
+                            style={{paddingRight: "100px"}}>Ate today: <span style={{color: "#ff0000"}}>{this.props.ateToday} g{isMobile ? <br/> : null}</span></span>Last time ate: <span style={{color: "#ff0000"}}>{cropOnlyTime(this.props.lastTimeAteToday)}</span></p>
                     </CurrentStats>
 
                     <RefillButtonContainer>
