@@ -2,7 +2,7 @@ import {Reading} from "../types/Reading";
 import {foodActions} from "../actions/foodActions";
 
 export interface FoodState {
-    graphData: Reading[],
+    graphData: any[],
     ateToday: number,
     lastTimeAte: string,
     currentWeight: number;

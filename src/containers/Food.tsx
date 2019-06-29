@@ -70,7 +70,7 @@ class Food extends React.Component<Props, State> {
         let start = sendDate.concat("T00:00:00");
         let end = sendDate.concat("T23:59:59");
         this.fetchAteThatDay(date);
-        this.props.fetchGraphData({startTime: start, endTime: end});
+        setTimeout(() => this.props.fetchGraphData({startTime: start, endTime: end}), 300);
 
         this.setState({
             date: date
