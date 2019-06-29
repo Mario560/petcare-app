@@ -48,8 +48,8 @@ export const fetchLastTimeDrank = () => (dispatch: any) => {
         });
 };
 
-export const fetchDrankToday = () => (dispatch: any) => {
-    api.get('/water/drank-today')
+export const fetchDrankToday = (form: TimeframeForm) => (dispatch: any) => {
+    api.post('/water/drank-today', form)
         .then((res) => {
             dispatch({
                 type: waterActions.FETCH_WATER_DRANK_TODAY,

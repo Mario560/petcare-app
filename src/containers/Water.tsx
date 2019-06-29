@@ -60,7 +60,8 @@ class Water extends React.Component<Props, State> {
         let sendDate = new Date(date).toISOString();
         sendDate = sendDate.substr(0, 10);
         let start = sendDate.concat("T00:00:00");
-        let end = sendDate.concat("T23:59:00");
+        let end = sendDate.concat("T23:59:59");
+        this.fetchDrankThatDay(date);
         this.props.fetchGraphData({startTime: start, endTime: end});
         this.setState({
             date: date
@@ -71,11 +72,22 @@ class Water extends React.Component<Props, State> {
         let sendDate = new Date().toISOString();
         sendDate = sendDate.substr(0, 10);
         let start = sendDate.concat("T00:00:00");
-        let end = sendDate.concat("T23:59:00");
+        let end = sendDate.concat("T23:59:59");
         this.props.fetchGraphData({startTime: start, endTime: end});
         this.props.fetchCurrentWeight();
-        this.props.fetchDrankToday();
+        this.fetchDrankThatDay(this.state.date);
         this.props.fetchLastTimeDrank();
+    }
+
+    fetchDrankThatDay(date: any){
+        let sendDate = new Date(date).toISOString();
+        sendDate = sendDate.substr(0, 10);
+        let start = sendDate.concat("T00:00:00");
+        let end = sendDate.concat("T23:59:59");
+
+
+        this.props.fetchDrankToday({startTime: start, endTime: end});
+
     }
 
     componentDidMount(){
@@ -90,10 +102,10 @@ class Water extends React.Component<Props, State> {
             let sendDate = new Date().toISOString();
             sendDate = sendDate.substr(0, 10);
             let start = sendDate.concat("T00:00:00");
-            let end = sendDate.concat("T23:59:00");
+            let end = sendDate.concat("T23:59:59");
             this.props.fetchGraphData({startTime: start, endTime: end});
             this.props.fetchCurrentWeight();
-            this.props.fetchDrankToday();
+            this.fetchDrankThatDay(this.state.date);
             this.props.fetchLastTimeDrank();
         }
     }
@@ -126,10 +138,14 @@ class Water extends React.Component<Props, State> {
                         onChange={this.handleChange}
                     />
                     </DateConatiner>
+                    {isToday(new Date(this.state.date)) ?
                     <CurrentStats>
                         <p><span style={{paddingRight: "100px"}}>Current water left: <span style={{color: "#ff0000"}}>{this.props.currentWeight} ml{isMobile ? <br/> : null}</span></span><span
                             style={{paddingRight: "100px"}}>Drank today: <span style={{color: "#ff0000"}}>{this.props.drankToday} ml{isMobile ? <br/> : null}</span></span>Last time drank: <span style={{color: "#ff0000"}}>{cropOnlyTime(this.props.lastTimeDrankToday)}</span></p>
-                    </CurrentStats>
+                    </CurrentStats> :
+                    <CurrentStats>
+                        <p>Drank that day: <span style={{color: "#ff0000"}}>{this.props.drankToday} ml{isMobile ? <br/> : null}</span></p>
+                    </CurrentStats> }
                 </div>
             );
         }

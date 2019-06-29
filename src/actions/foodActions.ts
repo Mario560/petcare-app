@@ -49,8 +49,8 @@ export const fetchLastTimeAte = () => (dispatch: any) => {
         });
 };
 
-export const fetchAteToday = () => (dispatch: any) => {
-    api.get('/food/ate-today')
+export const fetchAteToday = (form: TimeframeForm) => (dispatch: any) => {
+    api.post('/food/ate-today', form)
         .then((res) => {
             dispatch({
                 type: foodActions.FETCH_FOOD_ATE_TODAY,

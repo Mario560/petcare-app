@@ -68,21 +68,33 @@ class Food extends React.Component<Props, State> {
         let sendDate = new Date(date).toISOString();
         sendDate = sendDate.substr(0, 10);
         let start = sendDate.concat("T00:00:00");
-        let end = sendDate.concat("T23:59:00");
+        let end = sendDate.concat("T23:59:59");
+        this.fetchAteThatDay(date);
         this.props.fetchGraphData({startTime: start, endTime: end});
+
         this.setState({
             date: date
         });
+
     }
 
+    fetchAteThatDay(date: any){
+        let sendDate = new Date(date).toISOString();
+        sendDate = sendDate.substr(0, 10);
+        let start = sendDate.concat("T00:00:00");
+        let end = sendDate.concat("T23:59:59");
+
+        this.props.fetchAteToday({startTime: start, endTime: end});
+
+    }
     componentWillMount(){
         let sendDate = new Date().toISOString();
         sendDate = sendDate.substr(0, 10);
         let start = sendDate.concat("T00:00:00");
-        let end = sendDate.concat("T23:59:00");
+        let end = sendDate.concat("T23:59:59");
         this.props.fetchGraphData({startTime: start, endTime: end});
         this.props.fetchCurrentWeight();
-        this.props.fetchAteToday();
+        this.fetchAteThatDay(this.state.date);
         this.props.fetchLastTimeAte();
     }
 
@@ -98,14 +110,13 @@ class Food extends React.Component<Props, State> {
             let sendDate = new Date().toISOString();
             sendDate = sendDate.substr(0, 10);
             let start = sendDate.concat("T00:00:00");
-            let end = sendDate.concat("T23:59:00");
+            let end = sendDate.concat("T23:59:59");
             this.props.fetchGraphData({startTime: start, endTime: end});
             this.props.fetchCurrentWeight();
-            this.props.fetchAteToday();
+            this.fetchAteThatDay(this.state.date);
             this.props.fetchLastTimeAte();
         }
     }
-
 
     render() {
         if(this.props.foodGraphStats.length == 0){
@@ -145,13 +156,24 @@ class Food extends React.Component<Props, State> {
                             onChange={this.handleChange}
                         />
                     </DateConatiner>
-                    <CurrentStats>
-                        <p><span style={{paddingRight: "100px"}}>Current food left: <span style={{color: "#ff0000"}}>{this.props.currentWeight} g{isMobile ? <br/> : null}</span></span><span
-                            style={{paddingRight: "100px"}}>Ate today: <span style={{color: "#ff0000"}}>{this.props.ateToday} g{isMobile ? <br/> : null}</span></span>Last time ate: <span style={{color: "#ff0000"}}>{cropOnlyTime(this.props.lastTimeAteToday)}</span></p>
-                    </CurrentStats>
+                    {isToday(new Date(this.state.date)) ?
+                        <CurrentStats>
+                            <p><span style={{paddingRight: "100px"}}>Current food left: <span
+                                style={{color: "#ff0000"}}>{this.props.currentWeight} g{isMobile ? <br/> : null}</span></span><span
+                                style={{paddingRight: "100px"}}>Ate today: <span
+                                style={{color: "#ff0000"}}>{this.props.ateToday} g{isMobile ?
+                                <br/> : null}</span></span>Last time ate: <span
+                                style={{color: "#ff0000"}}>{cropOnlyTime(this.props.lastTimeAteToday)}</span></p>
+                        </CurrentStats> :
+                        <CurrentStats>
+                            <p>Ate that day: <span
+                                style={{color: "#ff0000"}}>{this.props.ateToday} g{isMobile ?
+                                <br/> : null}</span></p>
+                        </CurrentStats>
+                    }
 
-                    <RefillButtonContainer>
-                        <Button outline color="primary" disabled={this.refillDisabled} onClick={(e) => {
+                    {isToday(new Date(this.state.date)) ? <RefillButtonContainer>
+                        <Button outline color="primary"  disabled={this.refillDisabled} onClick={(e) => {
 
                             e.preventDefault();
                             this.props.refillFood();
@@ -160,7 +182,7 @@ class Food extends React.Component<Props, State> {
 
                         }}
                                 style={{textAlign: "center"}}>Refill food</Button>
-                    </RefillButtonContainer>
+                    </RefillButtonContainer> : null }
 
                 </div>
             );
