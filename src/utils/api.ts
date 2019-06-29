@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // export const baseURL = "http://localhost:8080";
-export const baseURL = "https://petcare-rest.herokuapp.com";
+export const baseURL = "https://petcare-rest-api.herokuapp.com/";
 
 
 const api = axios.create({
