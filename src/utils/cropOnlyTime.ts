@@ -1,6 +1,11 @@
 const cropOnlyTime = (stringDateTime: string) => {
-    const time = stringDateTime.substring(11, 19);
-    return time;
+    if(stringDateTime.length > 10) {
+        let dateInUTC = new Date(stringDateTime);
+        dateInUTC.setHours(dateInUTC.getHours() + 2);
+        const time = dateInUTC.toLocaleTimeString();
+        return time.substring(0, 9);
+    }
+    return stringDateTime;
 };
 
 export default cropOnlyTime;
